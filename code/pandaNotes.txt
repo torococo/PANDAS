@@ -1,0 +1,28 @@
+(Vim help options){
+  (vim-mode){
+    leader-r: runs code
+    K: show python docs
+    leader-b: insert breakpoint
+  }
+  (pylint){}
+}
+
+(Basics){
+  numpy{ arrays useful for storing data, c style }
+  pandas{ dataframes are primary structure{basically matrices with named data} }
+  matplotlib{
+    produces 2d plots and visualizations
+  }
+  IPython{
+    (may not be necissary)
+  }
+  SciPy{
+    numpy and scipy work together to cover most standard scientific computing issues
+  }
+}
+
+(builtin to python){
+  (defaultdict(type)){
+    pass in a type, like list or int, to create an empty dict whose values are of that type. whenever a new key/value pair is given, the defaultdict will automatically create/append
+  }
+}
