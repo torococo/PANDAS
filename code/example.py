@@ -4,11 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 test = 10
-test = test + 20
 
 
-def readJson(path):
-  return [json.loads(line) for line in open(path)]
+#def readJson(path):
+#  return [json.loads(line) for line in open(path)]
 
 
 # listOfDicts=readJson("./data/ch02/usagov_bitly_data2012-03-16-1331923249.txt")
@@ -20,14 +19,18 @@ def readJson(path):
 # frame['tz'].value_counts()[:10].plot(kind='barh',rot=0)
 # plt.show()
 
-unames = ['user_id', 'gender', 'age', 'occupation', 'zip']
-users = pd.read_table('../data/ch02/movielens/users.dat', sep='::', header=None, names=unames)
-rnames = ['user_id', 'movie_id', 'rating', 'timestamp']
-ratings = pd.read_table('../data/ch02/movielens/ratings.dat', sep='::', header=None, names=rnames)
-mnames = ['movie_id', 'title', 'genres']
-movies = pd.read_table('../data/ch02/movielens/movies.dat', sep='::', header=None, names=mnames)
-data = pd.merge(pd.merge(ratings, users), movies)
+#unames = ['user_id', 'gender', 'age', 'occupation', 'zip']
+#users = pd.read_table('../data/ch02/movielens/users.dat', sep='::', header=None, names=unames)
+#rnames = ['user_id', 'movie_id', 'rating', 'timestamp']
+#ratings = pd.read_table('../data/ch02/movielens/ratings.dat', sep='::', header=None, names=rnames)
+#mnames = ['movie_id', 'title', 'genres']
+#movies = pd.read_table('../data/ch02/movielens/movies.dat', sep='::', header=None, names=mnames)
+#data = pd.merge(pd.merge(ratings, users), movies)
+#
+#mean_ratings = data.pivot_table('rating', index='title', columns='gender', aggfunc='mean')
+#mean_ratings['diff'] = mean_ratings['M']-mean_ratings['F']
+#sorted_by_diff = mean_ratings.sort_index(by='diff')
 
-mean_ratings = data.pivot_table('rating', index='title', columns='gender', aggfunc='mean')
+#print(sorted_by_diff[::-1][:15])
 
-print(mean_ratings[:5])
+# print(mean_ratings[:5])
