@@ -113,7 +113,55 @@ numpy{
 
 
 
-  pandas{ dataframes are primary structure{basically matrices with named data} }
+pandas{ 
+  imports{
+    from pandas import Series,DataFrame
+    import pandas as pd
+  }
+  Series{
+    properties{
+      names{
+        both the series and index have names, which can be set with:
+        obj.name='name',obj.index.name='name2'
+      }
+      index{
+        array of associated labels for each entry of series
+        defaults to an array [0...N-1]
+      }
+    }
+    constructors{
+      Series([data],[indices])
+      Series({dict}) will autosort keys
+      Series(prevSeries,[new indices]) will create a new series from the prev w new indices, missing values will be NaN
+    }
+    operations{
+      indexing{
+        can use dict notation with index
+        numpy array slicing/indexing operations also work (with integers)
+        can also use dot notation for index
+      }
+      math operations{
+        similar to numpy arrays, but will line up differently indexed data for math operations
+      }
+    }
+  }
+  DataFrames{
+    properties{
+      columns, same as series index, but for columns of data
+      2D array of data
+    }
+    constructors{
+      DataFrame({'a':[1,2,3],'b':['i','j','k']}) with dict
+    }
+    indexing/slicing{
+      ditionary or dot notation
+    }
+
+  }
+  Functions{
+    isnull,notnoull used to check for nulls
+  }
+}
   matplotlib{
     produces 2d plots and visualizations
   }
