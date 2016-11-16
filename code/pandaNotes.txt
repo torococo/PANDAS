@@ -1,14 +1,118 @@
-(Vim help options){
-  (vim-mode){
-    leader-r: runs code
-    K: show python docs
-    leader-b: insert breakpoint
+numpy{ 
+  ndarray{
+    properties{
+      shape tuple (dimensions)
+      dtype{
+        normal{
+          [int8,16,32,64][uint8,16,32,64][float16,32,64,128][complex64,128,256][bool][object][string_][unicode_]
+          string and unicode have a number after denoting max length in bytes/chars
+        }
+        abbreviated{
+          [i1,2,4][u1,2,4][f2,f4(or f),f8(or d),f16(or g)][c8,16,32][?][O][S_][U_]
+        }
+      }
+    }
+    functions{
+      constructors{
+        array(sequence-like object){
+          produces a new ndarray
+          nested produces multidimensional
+        }
+        asarray(sequence-like-object){
+          converts to ndarray, but if already is an ndarray, does not change
+        }
+        copy{
+          creates separate array copy (not a view)
+        }
+        zeros,ones,eye,empty{
+          creates arrays of all zeros/ones/identity/uninitialized
+        }
+        arange(int){similar to range in python, creates range of numbers}
+        ones_like/zeros_like/empty_like{
+          produces an array of ones/zeros that is of same dims as arg
+        }
+        astype{
+          converts from one dtype to another
+          ALWAYS returns new array, even if type is same
+        }
+      }
+      operations{
+        elementwise{
+          +,-,*,/,**,mod works for scalars
+          can also do elementwise boolean comparisons, returns a boolean array
+          unary ufuncs{
+            perform elementwise ops on data in ndarrays
+            sqrt,exp,abs/fabs,exp,log,sign,ceil,floor,rint,isnan,isfinite,isinf,-(logical not)
+            sin,cos,tan,sinh,cosh,tanh,arccos,...
+          }
+          binary ufuncs{
+            takes 2 arrays, elementwise ops
+            +,-,*,/,floor_divide,**,maximum,fmax,minimum,fmin,mod,modf,copysign,>,<,&,|,^...(logical operators)
+          }
+        }
+        reductions{
+          mean,sum,std,(can give optional axis arg),any,all
+        }
+        Special cases{
+          cumsum(axis),cumprod(axis) do cumulative functions along give axis
+          arr.sort() sorts in place, np.sort(arr) returns sorted copy
+          where(cond,ifTrue,ifFalse)
+          Set functions{
+            unique() returns sorted array of all unique elems
+            intersect1d(x,y),union1d(x,y),setdiff1d(x,y),setxor1d(x,y)
+            in1d(x,y) boolean array saying if each elem of x is contained in y
+          }
+        }
+      }
+      indexing/slicing{
+        basics{
+          NOTE{slices are just views, not copies!}
+          each element is its own array
+          arr[2] gets 3rd subarray
+          arr[2][0]/arr[2,0] gets first elem of 3rd subarray
+          slices work by same analog as access, 
+        }
+        can use boolean array for slicing as well{
+          always returns new array
+          can set with boolean arrays as well{
+            data[data<5]=0 will set all values < 5 to 0
+          }
+        }
+        fancy{
+          arr[[3,2,1,4]]gets subarrays 3,2,1,4 as new array
+          arr[[1,2,3],[1,2,3]]gets diagonal elements, basically
+          arr[np.ix_([i1,i2...],[j1,j2...])] gets matrix formed by selecting those rows and columns
+          always returns new array
+        }
+        reshape{
+          reshapes. contiguous elements go in first dimension, with second dimension subarrays
+        }
+        transpose{
+          can use either .transpose() or .T
+          swapaxes can be used for higher dimensional transposing
+        }
+      }
+      saving/loading{
+        np.save,np.load
+        saves with .npy extension
+        np.savez('name.npz',a=arr1,b=arr2) pass arrays as key word arguments
+        key word args used to get values out of dict created when loading
+        np.savetxt,np.loadtxt,np.genfromtxt
+      }
+      linear algebra{
+        dot,inv,diag,trace,det,eig,inv,pinv,qr,svd,solve,lstsq
+      }
+      random{
+        normal(dist),seed,permutation,shuffle,rand,randint,binomial,beta,chisquare,gamma,uniform
+
+      }
+    }
   }
-  (pylint){}
 }
 
-(Basics){
-  numpy{ arrays useful for storing data, c style }
+
+
+
   pandas{ dataframes are primary structure{basically matrices with named data} }
   matplotlib{
     produces 2d plots and visualizations
@@ -21,7 +125,7 @@
   }
 }
 
-(builtin to python){
+builtin to python{
   (defaultdict(type)){
     pass in a type, like list or int, to create an empty dict whose values are of that type. whenever a new key/value pair is given, the defaultdict will automatically create/append
   }
