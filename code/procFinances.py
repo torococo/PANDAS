@@ -11,24 +11,29 @@ def categorySet(currCat,description,newCat,keyWord):
     return newCat
   return currCat
 
-statement=pd.read_csv("../finances/stmt.csv")
-statement['Category']='None'
+def classify(dataPath,categoryPath):
+  statement=pd.read_csv(dataPath)
+  statement=statement[statement.Amount<0]
+  statement['Category']='None'
 #print(statement)
-keywords=pd.read_csv("categories.csv",index_col=0,header=None).T.stack()
-keywords.index=keywords.index.droplevel(None)
-keywords=keywords.sortlevel()
-for category,keyword in keywords.iteritems():
-  statement.Category=statement.apply(lambda i:categorySet(i.Category,i.Description,category,keyword),axis=1)
+  keywords=pd.read_csv(categoryPath,index_col=0,header=None).T.stack()
+  keywords.index=keywords.index.droplevel(None)
+  keywords=keywords.sortlevel()
+  for category,keyword in keywords.iteritems():
+    statement.Category=statement.apply(lambda i:categorySet(i.Category,i.Description,category,keyword),axis=1)
+  return statement
 
-#for cat in categories.columns:
-#  for entry in categories[cat]:
-#    if not pd.isnull(entry):
-#
-classified=statement[statement.Category!='None']
-unclassified=statement[statement.Category=='None']
-unclassified.to_csv("../finances/unclassified.csv",index=False)
-print(statement[statement.Category=='None'].shape[0])
-print(statement[statement.Category!='None'].shape[0])
+# CATEGORIZE STATEMENT
+#statement=classify("../finances/stmt.csv","categories.csv")
+#statement[statement['Category']=='None'].to_csv("../finances/unclassified.csv",index=None)
+#statement.to_csv("../finances/classified.csv",index=None)
+
+
+statement=pd.read_csv("../finances/classified.csv")
+categories=statement.groupby('Category').sum()
+#print(statement[statement.Category=='Money Transfer'])
+print(categories.sort_values(by='Amount'))
+print(statement[statement.Category=='Money Transfer'])
 
 #classifiers.to_csv("test.csv")
 #classifier=buyClassifier()
