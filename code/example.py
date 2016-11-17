@@ -3,8 +3,8 @@ from pandas import DataFrame, Series
 import pandas as pd
 import matplotlib.pyplot as plt
 
-test = 10
-
+x=pd.DataFrame([[6,2,3],[4,5,1]],columns=['b','c','a'])
+print(x.quantile([0.25,0.5,0.75]))
 
 #def readJson(path):
 #  return [json.loads(line) for line in open(path)]
